@@ -1,0 +1,100 @@
+---
+elasticsearch_version: 1.7
+elasticsearch_key_id: 'D88E42B4'
+# defaults file for elasticsearch
+elasticsearch_dir: /usr/share/elasticsearch
+# Config
+elasticsearch_config_file:     /etc/elasticsearch/elasticsearch.yml
+elasticsearch_config: []
+
+
+# ---- ES Paths ----
+elasticsearch_path_conf: '/etc/elasticsearch'
+elasticsearch_path_data: '/var/lib/elasticsearch'
+elasticsearch_path_logs: '/var/log/elasticsearch'
+elasticsearch_path_work: '/tmp/elasticsearch'
+elasticsearch_path_home: '/usr/share/elasticsearch'
+elasticsearch_path_plugins: '{{ elasticsearch_path_home }}/plugins'
+elasticsearch_path_lib: '{{ elasticsearch_path_home }}/lib'
+
+# ---- ES Plugins ----
+# Examples:
+#
+# It follows the same syntax as using the ES plugin manager:
+# bin/plugin -i <name> -u <url>
+#
+# The url and config is optional.
+#elasticsearch_plugins:
+#  - name: 'facet-script'
+#    url: 'http://dl.bintray.com/content/imotov/elasticsearch-plugins/elasticsearch-facet-script-1.1.2.zip'
+#
+elasticsearch_plugins: []
+
+# ---- Libraries ----
+
+# Examples:
+#
+# The url is required, everything else is optional.
+#
+#
+#elasticsearch_libs:
+#  url: 'http://somewebsite.com/foo.jar'
+#
+#
+#elasticsearch_libs:
+#  url: 'http://somewebsite.com/foo.jar'
+#  file: 'differentfilename.jar'
+#  delete: True
+#
+#
+#elasticsearch_libs:
+#  url: 'http://somewebsite.com/foo.jar'
+#  user: 'basicauthuser'
+#  pass: 'basicauthpass'
+
+# A list of libraries to install or delete.
+elasticsearch_libs: []
+
+# ---- Cluster ----
+elasticsearch_cluster_name: 'elasticsearch'
+
+
+# ---- Node ----
+# An empty name will let elasticsearch randomly generate one for you.
+elasticsearch_node_name: ''
+
+elasticsearch_node_master: true
+elasticsearch_node_data: true
+
+
+# ---- Memory and filesystem ----
+
+elasticsearch_memory_mlockall: false
+
+# The heap size should be about 50% of your total RAM on a dedicated instance.
+# If you are running ES with a bunch of other services don't be afraid to
+# drastically lower this but be aware of performance issues if it's too low.
+# elasticsearch_memory_heap_size: '{{ (ansible_memtotal_mb | int * elasticsearch_memory_heap_size_multiplier) | round | int }}m'
+
+elasticsearch_memory_heap_size_multiplier: 0.5
+
+elasticsearch_memory_heap_newsize: ''
+elasticsearch_memory_direct_size: ''
+elasticsearch_memory_locked_size: 'unlimited'
+elasticsearch_memory_vma_max_map_count: 262144
+elasticsearch_fs_max_open_files: 65535
+
+# Force ES to use ipv4, set this to an empty string if you want to use ipv6.
+elasticsearch_fs_java_opts: '-Djava.net.preferIPv4Stack=true'
+
+# ---- Network and HTTP ----
+
+elasticsearch_bind_host: 'localhost'
+elasticsearch_publish_host: '{{ ansible_default_ipv4.address }}'
+elasticsearch_node_port: '9300-9400'
+elasticsearch_http_port: '9200-9300'
+
+# ---- Security ----
+
+# Do not enable this unless you have a very good reason to do so.
+elasticsearch_jsonp_enabled: false

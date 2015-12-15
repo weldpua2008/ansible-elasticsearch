@@ -1,0 +1,19 @@
+---
+#- name: install libselinux-python binary for Ansible to work
+#  yum: name=libselinux-python state=present
+#  when: ansible_distribution_major_version|int < 22
+
+- name: Fedora download RPM file
+  get_url: url="https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"  dest=/tmp/es.rpm
+  changed_when: false
+
+- name: Fedora install from RPM
+  yum: name=/tmp/es.rpm  state=present
+  when: ansible_distribution_major_version|int < 22
+
+- name: Fedora install from RPM
+  shell: dnf install /tmp/es.rpm -y
+  when: ansible_distribution_major_version|int >= 22
+
+
+

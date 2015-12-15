@@ -1,0 +1,21 @@
+---
+# handlers file for elasticsearch
+
+- name: elasticsearch restart
+  service:
+    name:  elasticsearch
+    state: restarted
+
+  - name: enable elasticsearch
+    service: name=elasticsearch enabled=yes state=started
+    notify: verify elasticsearch
+
+# the system->service stuff doesn't help us if the init script
+  # returns zero after a failed 'start' command, so resort to status
+  - name: verify elasticsearch
+    command: /etc/init.d/elasticsearch status
+    register: elasticsearch_running
+    failed_when: "elasticsearch_running.rc != 0"
+
+  - name: restart iptables
+    action: service name={{iptables_name}} state=restarted

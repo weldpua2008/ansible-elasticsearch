@@ -1,0 +1,8 @@
+# requires gentoolkit on host
+
+- name: Install Vagrant package
+  portage:
+    package=app-misc/elasticsearch-{{elasticsearch_version}}
+    state=present
+  changed_when: false
+

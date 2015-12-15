@@ -1,0 +1,50 @@
+# Setup for Vagrant
+
+- set_fact:
+    vagrant_arch_ext="i686"
+  when: ansible_architecture == "i386"
+  tags:
+    - elasticsearch
+
+- set_fact:
+    elasticsearch_arch_ext="x86_64"
+  when: ansible_architecture == "x86_64"
+  tags:
+    - elasticsearch
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags:
+    - elasticsearch
+
+- include: install-debian.yml
+  when: ansible_os_family == 'Debian'
+  tags:
+    - elasticsearch
+
+- include: install-redhat.yml
+#  when: "ansible_os_family == 'Debian'"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'RedHat'
+  tags:
+    - elasticsearch
+
+- include: install-fedora.yml
+  when: ansible_distribution == "Fedora"
+  tags:
+    - elasticsearch
+
+- include: install-suse.yml
+  when: ansible_os_family == 'Suse' or ansible_distribution == 'SLES' or ansible_distribution == 'OES' or ansible_distribution == 'Suse' or ansible_distribution == 'openSUSE'
+#  when: ansible_distribution == 'SLES' or ansible_distribution == 'OES' or ansible_distribution == 'Suse' or ansible_distribution == 'openSUSE'
+  tags:
+    - elasticsearch
+
+- include: install-freebsd.yml
+  when: ansible_os_family == 'FreeBSD'
+  tags:
+    - elasticsearch
+
+- include: install-gentoo.yml
+  when: ansible_os_family == 'Gentoo '
+  tags:
+    - elasticsearch

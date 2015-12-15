@@ -1,0 +1,18 @@
+---
+
+- name: Detect installed ES plugins
+  shell: "{{ elasticsearch_dir }}/bin/plugin --list | grep -P -o '^    - \\K\\w+'"
+  register: elasticsearch_plugins_check_output
+
+- name: plugins > Install
+  command: "{{ elasticsearch_dir }}/bin/plugin --install {{ item.repository|ternary(item.repository, item.name) }}"
+  when: item.name not in elasticsearch_plugins_check_output.stdout_lines
+  with_items: "{{ elasticsearch_plugins }}"
+  notify: [ 'restart elasticsearch' ]
+
+# Fix permissions
+- name: fix elasticsearch plugin file/directory permissions
+  file:
+    path="{{ elasticsearch_path.plugins }}" state=directory
+    owner=elasticsearch group=elasticsearch
+    recurse=yes
