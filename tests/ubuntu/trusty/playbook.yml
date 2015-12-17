@@ -2,7 +2,8 @@
   hosts: all
   sudo: yes
   gather_facts: true
-  vars:
-    freebsd_install_from_ports: True
+#  vars:
+#    freebsd_install_from_ports: True
   roles:
-    - ansible-elasticsearch
+    - { role: weldpua2008.java  }
+    - { role: ansible-elasticsearch  }
