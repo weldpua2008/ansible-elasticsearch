@@ -5,5 +5,5 @@
 #  vars:
 #    freebsd_install_from_ports: True
   roles:
-    - { role: weldpua2008.java  }
+    - { role: weldpua2008.openjdk  }
     - { role: ansible-elasticsearch  }
