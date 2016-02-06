@@ -7,10 +7,11 @@ Requirements
 
 - Java Runtime Envorinment. If you want to install Java take a look at the role weldpua2008.java.
 - Ansible 1.6.0+
+
 Dependencies
 ------------
 
-No dependencies.
+Run the following command to install the necessary Ansible roles for this profile: `$ ansible-galaxy install -r requirements.yml`
 
 ## Installation
 
