@@ -1,8 +1,8 @@
 ---
 - name: Add Elasticsearch apt key.
   apt_key:
-    url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
-    id: {{ elasticsearch_key_id }}
+    url: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
+    id: "{{ elasticsearch_key_id }}"
     state: present
 
 - name: Add Elasticsearch repository.

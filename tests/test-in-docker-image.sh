@@ -38,7 +38,7 @@ printf "[defaults]\nroles_path = ../" > ansible.cfg
 #
 
 function install_requirements(){
-     ansible-galaxy install weldpua2008.java
+     ansible-galaxy install weldpua2008.java --force
 }
 
 function test_playbook_syntax(){
