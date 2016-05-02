@@ -37,6 +37,10 @@ cd $RDIR/..
 printf "[defaults]\nroles_path = ../" > ansible.cfg
 #
 
+function install_requirements(){
+     ansible-galaxy install weldpua2008.java
+}
+
 function test_playbook_syntax(){
 
     ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOk} --syntax-check || (echo "ansible playbook syntax check was failed" && exit 2 )
@@ -59,6 +63,7 @@ function extra_tests(){
 }
 
 function main(){
+    install_requirements
     test_playbook_syntax
     test_playbook
     extra_tests
