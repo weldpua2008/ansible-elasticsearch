@@ -1,5 +1,6 @@
 ---
 elasticsearch_version: 1.7
+fedora_elasticsearch_version: 1.7.1
 elasticsearch_key_id: 'D88E42B4'
 # defaults file for elasticsearch
 elasticsearch_dir: /usr/share/elasticsearch
